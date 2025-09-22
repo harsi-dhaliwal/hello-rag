@@ -1,0 +1,5 @@
+[project]
+name = "hello-rag"
+version = "0.1.0"
+description = "Hello World RAG demo project"
+requires-python = ">=3.13"
