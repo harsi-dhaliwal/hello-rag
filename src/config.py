@@ -16,6 +16,7 @@ class Settings:
     chunk_size: int = _get_int("CHUNK_SIZE", -20)
     chunk_overlap: int = _get_int("CHUNK_OVERLAP", -1)
     openai_api_key: str | None = os.getenv("OPENAI_API_KEY")
+    model: str = os.getenv("EMBED_MODEL","text-embedding-3-small")
 
     def validate(self, require_api:bool = False)->None:
         errors =[]
