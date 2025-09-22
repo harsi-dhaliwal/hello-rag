@@ -2,12 +2,22 @@ import re
 
 from collections.abc import Iterator
 
-def simple_split(text:str, size:int =800,overlap:int =120)->Iterator[str]:
-    text = re.sub(r"\s+"," ",text).strip()
-    start = 0
-    n = len(text)
+_sentence_splitter = re.compile(r'(?<=[.!?])\s+')
 
-    while start<n:
-        end = min(start+size,n)
-        yield text[start:end]
-        start = max(end-overlap,start+1)
+def sentence_split(text: str)->list[str]:
+    return _sentence_splitter.split(text.strip())
+
+def simple_split(text:str, size:int =800,overlap:int =120)->Iterator[str]:
+    sentences = sentence_split(text)
+    chunk,length = [],0
+    for sent in sentences:
+        if length+len(sent)>size and chunk:
+            yield " ".join(chunk)
+            overlap_sents = chunk[-1:]
+            chunk = overlap_sents + [sent]
+            length = sum(len(s) for s in chunk)
+        else:
+            chunk.append(sent)
+            length += len(sent)
+    if chunk:
+        yield " ".join(chunk)

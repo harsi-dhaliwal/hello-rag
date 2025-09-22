@@ -12,6 +12,7 @@ def main():
 
     for chunk in simple_split(text,args.size,args.overlap):
         print(chunk)
+        print("-"*40)
 
 
 
