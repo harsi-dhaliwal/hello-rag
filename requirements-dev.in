@@ -1,3 +1,2 @@
-pytest
-ruff
-black
+-c requirements.txt
+pip-tools
