@@ -13,10 +13,11 @@ def _get_int(name: str, default: int) -> int:
 
 @dataclass(frozen=True)
 class Settings:
-    chunk_size: int = _get_int("CHUNK_SIZE", -20)
-    chunk_overlap: int = _get_int("CHUNK_OVERLAP", -1)
+    chunk_size: int = _get_int("CHUNK_SIZE", 800)
+    chunk_overlap: int = _get_int("CHUNK_OVERLAP", 120)
     openai_api_key: str | None = os.getenv("OPENAI_API_KEY")
-    model: str = os.getenv("EMBED_MODEL","text-embedding-3-small")
+    embed_model: str = os.getenv("EMBED_MODEL","text-embedding-3-small")
+    chat_model: str = os.getenv("CHAT_MODEL","gpt-4o-mini")
 
     def validate(self, require_api:bool = False)->None:
         errors =[]
